@@ -1,4 +1,5 @@
-import { ChangeEvent, SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState } from "react";
+import "./styles.css";
 
 export default function App() {
   const [newTarea, setNewTarea] = useState<string>("");
@@ -34,6 +35,12 @@ export default function App() {
     });
   }
 
+  function eliminarToDo(id: string) {
+    setToDos((actualToDo: any) => {
+      return actualToDo.filter((toDo: any) => toDo.id !== id);
+    });
+  }
+
   console.log(toDos);
 
   return (
@@ -55,6 +62,7 @@ export default function App() {
       <h1 className="header">To-do</h1>
 
       <ul className="lista">
+        {toDos.length === 0 && "No hay tareas"}
         {toDos.map((toDo: any) => {
           return (
             <li key={toDo.id}>
@@ -68,7 +76,12 @@ export default function App() {
                 />
                 {toDo.titulo}
               </label>
-              <button className="boton boton-peligro">Eliminar</button>
+              <button
+                className="boton boton-peligro"
+                onClick={() => eliminarToDo(toDo.id)}
+              >
+                Eliminar
+              </button>
             </li>
           );
         })}
