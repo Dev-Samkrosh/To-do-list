@@ -1,43 +1,24 @@
-export interface TareasProps {
-  titulo: string;
-  descripcion: string;
-  fechaDeVencimiento: string;
-  id: number;
-  estado: boolean;
+import { Tarea } from "../interfaces/interfaces";
+
+interface TareasProps {
+  tarea: Tarea;
 }
 
-export default function Tareas({
-  titulo,
-  descripcion,
-  fechaDeVencimiento,
-  id,
-  estado,
-}: TareasProps) {
+export default function Tareas({ tarea }: TareasProps) {
   return (
-    <li id="">
-      {/* !!! ID único requerido por ser hijo creado dinámicamente */}
+    <li>
       <input type="checkbox"></input>
-      <p>{/* !!! Tarea aqui */} titulo</p>
+      <p>{tarea.titulo}</p>
+      <p>{tarea.descripcion}</p>
       <div>
-        <p>{/* !!! Fecha aqui */}Fecha</p>
+        <p>{tarea.fechaDeVencimiento}</p>
       </div>
       <div>
-        {/* !!! Botones aqui */}
         <button>
-          <span>
-            {/* !!! Debe esconderse, se pone por accesibilidad */}Editar
-          </span>
-          <svg>
-            <path d=""></path>
-          </svg>
+          <span>Editar</span>
         </button>
         <button>
-          <span>
-            {/* !!! Debe esconderse, se pone por accesibilidad */}Eliminar
-          </span>
-          <svg>
-            <path d=""></path>
-          </svg>
+          <span>Eliminar</span>
         </button>
       </div>
     </li>
