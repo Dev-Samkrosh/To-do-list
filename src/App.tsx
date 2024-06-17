@@ -27,6 +27,10 @@ export default function App() {
       estado: false,
     });
   };
+
+  const eliminarTarea = (id: string) => {
+    setTareas((prevTareas) => prevTareas.filter((tarea) => tarea.id !== id));
+  };
   return (
     <>
       {/* Componente #1: Header */}
@@ -40,7 +44,7 @@ export default function App() {
       ></Formulario>
 
       {/* Componente #3: Lista de tareas */}
-      <ListaDeTareas tareas={tareas}>
+      <ListaDeTareas tareas={tareas} eliminarTarea={eliminarTarea}>
         {/* !!! tareas es un State que se toma dinámicamente
         Se debe pasar el prop tareas={tareas} */}
       </ListaDeTareas>

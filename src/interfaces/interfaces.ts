@@ -14,4 +14,10 @@ export interface TareaFormularioProps {
 
 export interface ListaDeTareasProps {
   tareas: Tarea[];
+  eliminarTarea: (id: string) => void;
+}
+
+export interface TareasProps {
+  tarea: Tarea;
+  eliminarTarea: (id: string) => void;
 }

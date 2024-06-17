@@ -1,10 +1,6 @@
-import { Tarea } from "../interfaces/interfaces";
+import { TareasProps } from "../interfaces/interfaces";
 
-interface TareasProps {
-  tarea: Tarea;
-}
-
-export default function Tareas({ tarea }: TareasProps) {
+export default function Tareas({ tarea, eliminarTarea }: TareasProps) {
   return (
     <li>
       <input type="checkbox"></input>
@@ -17,7 +13,7 @@ export default function Tareas({ tarea }: TareasProps) {
         <button>
           <span>Editar</span>
         </button>
-        <button>
+        <button onClick={() => eliminarTarea(tarea.id)}>
           <span>Eliminar</span>
         </button>
       </div>
