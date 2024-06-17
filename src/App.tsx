@@ -1,91 +1,121 @@
-import { SyntheticEvent, useState } from "react";
-import "./styles.css";
+// import { useState } from "react";
+// import FormularioNuevaTarea from "./components/FormularioNuevaTarea";
+// import ListaToDo from "./components/ListaToDo";
+
+// export default function App() {
+// const [toDos, setToDos] = useState<any>([]);
+
+// function anadirToDo(titulo: string) {
+//   setToDos((actualToDo: string) => {
+//     return [
+//       ...actualToDo,
+//       {
+//         id: crypto.randomUUID(),
+//         titulo,
+//         completado: false,
+//       },
+//     ];
+//   });
+// }
+
+// function seleccionarToDo(ToDo, completado) {
+//   setToDos((actualToDo) => {
+//     return actualToDo.map((toDo) => {
+//       if (toDo.id === id) {
+//         return { ...toDo, completado };
+//       }
+//       return toDo;
+//     });
+//   });
+// }
+
+// function eliminarToDo(id) {
+//   setToDos((actualToDo) => {
+//     return actualToDo.filter((toDo) => toDo.id !== id);
+//   });
+// }
+
+// console.log(toDos);
+
+//   return (
+//     <>
+//       <h1 className="header">To-do List</h1>
+//       <br></br>
+//       <ListaToDo
+// toDos={toDos}
+// seleccionarToDo={seleccionarToDo}
+// eliminarToDo={eliminarToDo}
+//       />
+//       <br></br>
+//       <FormularioNuevaTarea onSubmit={anadirToDo} />
+//     </>
+//   );
+// }
 
 export default function App() {
-  const [newTarea, setNewTarea] = useState<string>("");
-  const [toDos, setToDos] = useState<any>([]); // Hay que definir bien el tipo
-
-  // handleSubmit hace que al enviar los datos del form y actualizarse la página, no se pierdan los datos del input
-  function handleSubmit(event: SyntheticEvent) {
-    event.preventDefault();
-
-    setToDos((actualToDo: string) => {
-      return [
-        ...actualToDo,
-        {
-          id: crypto.randomUUID(),
-          titulo: newTarea,
-          completado: FontFaceSetLoadEvent,
-        },
-      ];
-    });
-
-    setNewTarea("");
-  }
-
-  function seleccionarToDo(id: string, completado: boolean) {
-    setToDos((actualToDo: any) => {
-      // Viene a ser un array
-      return actualToDo.map((toDo: any) => {
-        if (toDo.id === id) {
-          return { ...toDo, completado };
-        }
-        return toDo;
-      });
-    });
-  }
-
-  function eliminarToDo(id: string) {
-    setToDos((actualToDo: any) => {
-      return actualToDo.filter((toDo: any) => toDo.id !== id);
-    });
-  }
-
-  console.log(toDos);
-
   return (
-    // Formulario para añadir tareas nuevas
     <>
-      <form onSubmit={handleSubmit} className="formulario-tarea">
-        <div className="fila-tarea">
-          <label htmlFor="tarea">Añadir nueva tarea</label>
+      {/* Componente #1: Header */}
+      <header>
+        <svg>
+          <path d=""></path>
+        </svg>
+        <h1>Lista de tareas</h1>
+      </header>
+
+      {/* Componente #2: Form */}
+      <form className="formulario">
+        {" "}
+        {/* !!! Falta un handler para evitar que se borre */}
+        <label htmlFor="formulario">
           <input
-            value={newTarea}
-            onChange={(event) => setNewTarea(event.target.value)}
             type="text"
+            name="tarea"
             id="tarea"
-          />
-        </div>
-        <button className="boton">Añadir</button>
+            placeholder="Escribe tu próxima tarea"
+          ></input>
+        </label>
+        <button>
+          <span>
+            {/* !!! Debe esconderse, se pone por accesibilidad */}Añadir
+          </span>{" "}
+          <svg>
+            <path d=""></path>
+          </svg>
+        </button>
       </form>
 
-      <h1 className="header">To-do</h1>
-
-      <ul className="lista">
-        {toDos.length === 0 && "No hay tareas"}
-        {toDos.map((toDo: any) => {
-          return (
-            <li key={toDo.id}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={toDos.completado}
-                  onChange={(event) =>
-                    seleccionarToDo(toDo.id, event.target.checked)
-                  }
-                />
-                {toDo.titulo}
-              </label>
-              <button
-                className="boton boton-peligro"
-                onClick={() => eliminarToDo(toDo.id)}
-              >
-                Eliminar
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+      {/* Componente #3: Lista de tareas */}
+      <ol>
+        {/* Componente #4: Tareas */}
+        <li id="">
+          {/* !!! ID único requerido por ser hijo creado dinámicamente */}
+          <input type="checkbox"></input>
+          <p>{/* !!! Tarea aqui */} Tarea</p>
+          <div>
+            <p>{/* !!! Fecha aqui */}Fecha</p>
+          </div>
+          <div>
+            {/* !!! Botones aqui */}
+            <button>
+              <span>
+                {/* !!! Debe esconderse, se pone por accesibilidad */}Editar
+              </span>
+              <svg>
+                <path d=""></path>
+              </svg>
+            </button>
+            <button>
+              <span>
+                {/* !!! Debe esconderse, se pone por accesibilidad */}Eliminar
+              </span>
+              <svg>
+                <path d=""></path>
+              </svg>
+            </button>
+          </div>
+        </li>
+      </ol>
     </>
   );
 }
