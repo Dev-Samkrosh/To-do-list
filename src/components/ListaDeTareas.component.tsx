@@ -1,16 +1,12 @@
-import { ListaDeTareasProps } from "../interfaces/interfaces";
-import Tareas from "./Tareas";
+import Tareas from "./Tareas..component";
 
-export default function ListaDeTareas({
-  tareas,
-  eliminarTarea,
-}: ListaDeTareasProps) {
+export default function ListaDeTareas() {
   return (
     <ul>
       {/* Componente #4: Tareas 
         Comprobamos si existen tareas, en dicho caso, pasamos las propiedades de tareas al componente para renderizar
       */}
-      {tareas.map((tarea) => (
+      {listaTareas.map((tarea) => (
         <Tareas key={tarea.id} tarea={tarea} eliminarTarea={eliminarTarea} />
       ))}
     </ul>

@@ -1,4 +1,4 @@
-import { Tarea, TareaFormularioProps } from "../interfaces/interfaces";
+import { Tarea, TareaFormularioProps } from "../domain/interfaces/interfaces";
 
 export default function Formulario({
   tarea,
@@ -9,9 +9,10 @@ export default function Formulario({
     event.preventDefault();
 
     // Reseteamos el formulario
+
+    agregarTarea({ ...tarea, id: crypto.randomUUID() });
     const formulario = event.target as HTMLFormElement;
     formulario.reset();
-    agregarTarea({ ...tarea, id: crypto.randomUUID() });
   };
 
   // Función para manejar los cambios en cualquier input
