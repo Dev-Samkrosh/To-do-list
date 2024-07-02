@@ -1,23 +1,24 @@
-export interface Tarea {
-  id: string;
+export interface IFormProps {
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  description: string;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  date: Date;
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  addTodo: (e: any) => Promise<void | null>;
+}
+
+export interface TodoListProps {
+  todos: ITodo[];
+  fetchData: () => Promise<void>;
+}
+
+// ! Atomic
+
+export interface ITodo {
+  _id: string;
   titulo: string;
   descripcion: string;
   fechaDeVencimiento: string;
-  estado: boolean;
-}
-
-export interface TareaFormularioProps {
-  tarea: Tarea;
-  setTarea: React.Dispatch<React.SetStateAction<Tarea>>;
-  agregarTarea: (tarea: Tarea) => void;
-}
-
-export interface ListaDeTareasProps {
-  tareas: Tarea[];
-  eliminarTarea: (id: string) => void;
-}
-
-export interface TareasProps {
-  tarea: Tarea;
-  eliminarTarea: (id: string) => void;
+  completado: boolean;
 }

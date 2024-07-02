@@ -1,53 +1,33 @@
-import { useState } from "react";
-import Formulario from "./components/Formulario";
-import Header from "./components/Header";
-import ListaDeTareas from "./components/ListaDeTareas";
-import { Tarea } from "./interfaces/interfaces";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import ToDo from "./components/ToDo/ToDo.component";
+import Login from "./components/Login/Login.component";
+import Register from "./components/Register/Register.component";
+import "./index.css";
 
 export default function App() {
-  const [tareas, setTareas] = useState<Tarea[]>([]);
-  const [tarea, setTarea] = useState<Tarea>({
-    // Estado para las tareas por individual
-    id: "",
-    titulo: "",
-    descripcion: "",
-    fechaDeVencimiento: "",
-    estado: false,
-  });
-
-  // Función para agregar una nueva tarea a la lista
-  const agregarTarea = (nuevaTarea: Tarea) => {
-    setTareas((prevTareas) => [...prevTareas, nuevaTarea]);
-    // Resetea el estado de la tarea individual después de agregarla a la lista
-    setTarea({
-      id: "",
-      titulo: "",
-      descripcion: "",
-      fechaDeVencimiento: "",
-      estado: false,
-    });
+  const useAuth = () => {
+    //getting token from local storage
+    const user = localStorage.getItem("token");
+    //checking whether token is preset or not
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
-  const eliminarTarea = (id: string) => {
-    setTareas((prevTareas) => prevTareas.filter((tarea) => tarea.id !== id));
-  };
+  function PrivateRoutes() {
+    const token = useAuth();
+    return token ? <Outlet /> : <Navigate to="/login" />;
+  }
+
   return (
-    <>
-      {/* Componente #1: Header */}
-      <Header></Header>
-
-      {/* Componente #2: Form */}
-      <Formulario
-        tarea={tarea}
-        setTarea={setTarea}
-        agregarTarea={agregarTarea}
-      ></Formulario>
-
-      {/* Componente #3: Lista de tareas */}
-      <ListaDeTareas tareas={tareas} eliminarTarea={eliminarTarea}>
-        {/* !!! tareas es un State que se toma dinámicamente
-        Se debe pasar el prop tareas={tareas} */}
-      </ListaDeTareas>
-    </>
+    <Routes>
+      <Route element={<PrivateRoutes />}>
+        <Route element={<ToDo />} path="/" />
+      </Route>
+      <Route path="/login" element={<Login />} />
+      <Route path="/registro" element={<Register />} />
+    </Routes>
   );
 }
